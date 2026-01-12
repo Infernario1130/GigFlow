@@ -43,7 +43,7 @@ userSchema.methods.generateAccessToken = async function() {
             _id : this._id
         } , process.env.ACCESS_TOKEN_SECRET ,
         {
-            expiresIn : ACCESS_TOKEN_EXPIRY
+            expiresIn : process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
