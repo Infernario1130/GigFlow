@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import healthcheckRouter from "./routes/healthcheck.routes.js";
 import userRouter from "./routes/user.routes.js";
+import 
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use(cors({
 
 app.use("/api/v1/healthcheck" , healthcheckRouter);
 app.use("/api/auth" , userRouter);
+app.use("/api/gigs" , gigRouter);
 
 export default app;
