@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import healthcheckRouter from "./routes/healthcheck.routes.js";
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.use(cors({
     origin : process.env.CORS_ORIGIN ,
     credentials : true
 }))
+
+app.use("/api/v1/healthcheck" , healthcheckRouter)
 
 export default app;
