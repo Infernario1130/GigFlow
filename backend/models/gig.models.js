@@ -30,6 +30,7 @@ const gigSchema = new Schema({
 { timestamps : true}
 )
 
+gigSchema.index({ title: "text" });
 gigSchema.index({ ownerId : 1 , status : 1 , createdAt : -1})
 
 export const Gig = mongoose.model("Gig" , gigSchema)
