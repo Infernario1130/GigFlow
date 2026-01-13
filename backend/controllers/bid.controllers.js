@@ -56,7 +56,44 @@ const createBid = asyncHandler( async( req , res ) => {
 })
 
 const getAllBids = asyncHandler(async( req , res ) => {
+    const { gigId } = req.params 
 
+    if ( !gigId ) {
+        throw new ApiError( 400 , "Gig Id is required.")
+    }
+    
+    const userId = req.user?._id ;
+
+    if ( !userId ) {
+        throw new ApiError (401 , "Unauthorized request.")
+    };
+
+    const gig = await Gig.findById(gigId).select("ownerId");
+
+    if (!gig) {
+        throw new ApiError(404, "Gig not found.");
+    }
+
+
+    if (userId.toString() !== gig.ownerId.toString()) {
+        throw new ApiError( 403 , "Only allowed for owners of the gig.")
+    }
+
+    const bids = await Bid.find({
+        gigId : gigId
+    })
+
+    if ( bids.length === 0 ) {
+        return res
+        .status(200)
+        .json(
+            new ApiResponse(200 , [] , "No bids found for this gig.")
+        )
+    }
+
+    return res
+    .status(200)
+    .json( new ApiResponse( 200 , bids , "Fetched all the bids for the specified gig."))
 })
 
 export {
