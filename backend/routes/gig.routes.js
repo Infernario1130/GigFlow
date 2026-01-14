@@ -6,8 +6,6 @@ import { createGig,
 
 const router = Router();
 
-router.use(verifyJWT);
-
-router.route("/").post(createGig).get(getOpenGigs)
+router.route("/").post(verifyJWT, createGig).get(getOpenGigs)
 
 export default router;

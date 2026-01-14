@@ -47,7 +47,10 @@ const getOpenGigs = asyncHandler(async (req, res) => {
     const gigs = await Gig.find(filter);
 
     if (gigs.length === 0) {
-        throw new ApiError( 404 , "No open gigs are found at the moment.")
+        return res
+            .status(200)
+            .json(new ApiResponse(200, gigs, "Fetched open gigs successfully."));
+
     }
 
     return res
